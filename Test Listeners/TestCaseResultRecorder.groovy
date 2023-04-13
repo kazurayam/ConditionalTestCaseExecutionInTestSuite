@@ -7,9 +7,11 @@ import internal.GlobalVariable
 
 class TestCaseResultRecorder {
 	
+	private static String CLASS_SHORT_NAME = 'TestCaseResultRecorder'
+	
 	@AfterTestCase
 	def afterTestCase(TestCaseContext testCaseContext) {
-		println "[TestCaseContextRecorder#afterTestCase] added a node '${testCaseContext.getTestCaseId()}'"
+		println "[${CLASS_SHORT_NAME}#afterTestCase] added a node '${testCaseContext.getTestCaseId()}'"
 		if (GlobalVariable.TestCaseResults != null && GlobalVariable.TestCaseResults instanceof Map) {
 			GlobalVariable.TestCaseResults[testCaseContext.getTestCaseId()] = testCaseContext
 		}
@@ -21,10 +23,10 @@ class TestCaseResultRecorder {
 			Map<String, TestCaseContext> map = (Map)GlobalVariable.TestCaseResults
 			map.keySet().forEach { testCaseId ->
 				TestCaseContext tcc = map.get(testCaseId)
-				println "[TestCaseContextRecorder#afterTestSuite] '${testCaseId}' : ${tcc.getTestCaseStatus()}"
+				println "[${CLASS_SHORT_NAME}#afterTestSuite] '${testCaseId}' : ${tcc.getTestCaseStatus()}"
 			}
 		} else {
-			// does nothing if GlobalVariable.TestCaseTree is not defined
+			// does nothing if GlobalVariable.TestCaseResults is not defined
 		}
 	}
 

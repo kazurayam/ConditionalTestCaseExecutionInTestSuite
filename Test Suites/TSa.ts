@@ -15,28 +15,28 @@
       <guid>34a9e3ad-b7b8-4ef3-88da-1b1c8202b4ce</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/noAssertion/TCa1</testCaseId>
+      <testCaseId>Test Cases/noControl/TCa1</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
       <guid>bc31be09-25da-4d9a-8577-1bcc78b83fe1</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/noAssertion/TCa2</testCaseId>
+      <testCaseId>Test Cases/noControl/TCa2</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
       <guid>7dd680eb-db42-466a-b1ec-769d127243d0</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/noAssertion/TCa3</testCaseId>
+      <testCaseId>Test Cases/noControl/TCa3</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
       <guid>84b6011b-c27c-4d33-b75b-8000cc6e37d5</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/noAssertion/TCa4</testCaseId>
+      <testCaseId>Test Cases/noControl/TCa4</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
 </TestSuiteEntity>
