@@ -17,7 +17,7 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-WebUI.comment("noControl/TCa3 is running")
+WebUI.comment("unconditional/TCa3 is running")
 
 WebUI.delay(5)
 WebUI.delay(5)
