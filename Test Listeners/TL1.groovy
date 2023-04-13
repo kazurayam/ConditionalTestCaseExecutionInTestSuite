@@ -6,7 +6,7 @@ import com.kms.katalon.core.context.TestSuiteContext
 import internal.GlobalVariable
 import com.kazurayam.ks.TestCaseResults
 
-class TestCaseResultRecorder {
+class TL1 {
 	
 	@AfterTestCase
 	def afterTestCase(TestCaseContext testCaseContext) {

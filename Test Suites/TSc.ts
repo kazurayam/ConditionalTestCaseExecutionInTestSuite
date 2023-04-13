@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>TSb</name>
+   <name>TSc</name>
    <tag></tag>
    <isRerun>false</isRerun>
    <mailRecipient></mailRecipient>
@@ -10,33 +10,33 @@
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <rerunImmediately>false</rerunImmediately>
-   <testSuiteGuid>4fa52dd1-9caf-410d-a915-4ee103261259</testSuiteGuid>
+   <testSuiteGuid>f691ce90-56a0-437a-8498-ba6ec81d7c80</testSuiteGuid>
    <testCaseLink>
-      <guid>f9ae082d-849f-4844-a801-a1890c1714e9</guid>
+      <guid>3ab14d3a-d00f-4bd3-a2fe-b3c6c97b43cd</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/conditional-withFailure/TCb1</testCaseId>
+      <testCaseId>Test Cases/conditional-noFailure/TCc1</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
-      <guid>17672445-8b26-459d-a7ac-bc0c0890ce9a</guid>
+      <guid>4df6bcf4-ad59-4a4e-8067-7cfbf1c4b347</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/conditional-withFailure/TCb2</testCaseId>
+      <testCaseId>Test Cases/conditional-noFailure/TCc2</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
-      <guid>c13c1392-86c6-4b79-aadb-252c35d36450</guid>
+      <guid>6aa4f939-dc54-4916-9a66-126b2d43dc84</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/conditional-withFailure/TCb3</testCaseId>
+      <testCaseId>Test Cases/conditional-noFailure/TCc3</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
-      <guid>0187dbd3-58d2-48d0-a32a-4f677b637d78</guid>
+      <guid>0cb2433c-64bf-4332-9c1a-e3341f973fd5</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/conditional-withFailure/TCb4</testCaseId>
+      <testCaseId>Test Cases/conditional-noFailure/TCc4</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
 </TestSuiteEntity>

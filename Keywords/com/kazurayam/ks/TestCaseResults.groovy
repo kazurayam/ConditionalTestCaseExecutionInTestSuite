@@ -7,11 +7,11 @@ import com.kms.katalon.core.exception.StepFailedException
 import internal.GlobalVariable
 
 public class TestCaseResults {
-	
+
 	private static String CLASS_SHORT_NAME = 'TestCaseResults'
 
 	private TestCaseResults() {}
-	
+
 	static void put(TestCaseContext testCaseContext) {
 		if (GlobalVariable.TestCaseResults != null && GlobalVariable.TestCaseResults instanceof Map) {
 			GlobalVariable.TestCaseResults[testCaseContext.getTestCaseId()] = testCaseContext
@@ -28,7 +28,7 @@ public class TestCaseResults {
 					throw new StepFailedException("current Test Case is going to quit because a preceding Test Case '${tcId}' did not PASSED")
 				}
 			} else {
-				KeywordUtil.markWarning("[${CLASS_SHORT_NAME}#assertPASSED] unknown TestCaseId: '${tcId}'")
+				KeywordUtil.markWarning("[${CLASS_SHORT_NAME}#assertTestCasePASSED] unknown TestCaseId: '${tcId}'")
 			}
 		} else {
 			// does nothing if GlobalVariable.TestCaseResults is not defined
@@ -42,13 +42,13 @@ public class TestCaseResults {
 			return 'Test Cases/' + testCaseId
 		}
 	}
-	
+
 	static void println() {
 		if (GlobalVariable.TestCaseResults != null && GlobalVariable.TestCaseResults instanceof Map) {
 			Map<String, TestCaseContext> map = (Map)GlobalVariable.TestCaseResults
 			map.keySet().forEach { testCaseId ->
 				TestCaseContext tcc = map.get(testCaseId)
-				println "[${CLASS_SHORT_NAME}#afterTestSuite] '${testCaseId}' : ${tcc.getTestCaseStatus()}"
+				println "[${CLASS_SHORT_NAME}#println] '${testCaseId}' : ${tcc.getTestCaseStatus()}"
 			}
 		} else {
 			// does nothing if GlobalVariable.TestCaseResults is not defined

@@ -1,0 +1,33 @@
+@startuml TSb - conditional Test Stuite
+start
+
+partition "TC1" {
+  :do something;
+}
+
+partition "TC2" {
+  if (TC1 PASSED?) then (yes)
+    :do something;
+'    #HotPink:Accidental Failure occured;
+  endif
+}
+
+partition "TC3" {
+  if (TC2 PASSED?) then (yes)
+    :do something;
+    :do more;
+    :do more and more;
+    :do more, more and more;
+  else (no)
+'    #Yellow:mark FAILED;
+  endif
+}
+
+partition "TC4" {
+  if (TC1 PASSED?) then (yes)
+    :do something;
+  endif
+}
+
+stop
+@enduml
