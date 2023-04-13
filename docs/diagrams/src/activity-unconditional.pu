@@ -1,0 +1,25 @@
+@startuml TSa - unconditional
+start
+
+partition "TC1" {
+  :do something;
+}
+
+partition "TC2" {
+  :do something;
+  #HotPink:Accidental Failure occured;
+}
+
+partition "TC3" {
+  :do something;
+  :do more;
+  :do more and more;
+  :do more, more and more;
+}
+
+partition "TC4" {
+  :do something;
+}
+
+stop
+@enduml

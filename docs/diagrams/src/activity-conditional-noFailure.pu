@@ -1,4 +1,4 @@
-@startuml TSb - conditional Test Stuite
+@startuml TSc - conditional no Failure
 start
 
 partition "TC1" {
