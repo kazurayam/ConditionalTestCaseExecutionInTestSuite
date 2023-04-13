@@ -1,8 +1,8 @@
 import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import com.kazurayam.ks.TestCaseTreeNode
+import com.kazurayam.ks.TestCaseTreeTracer
 
-new TestCaseTreeNode("Test Cases/withTree/TCb2").follows("Test Cases/withTree/TCb1")
+TestCaseTreeTracer.verifyEdge("withTree/TCb1", "withTree/TCb2")
 
 WebUI.comment("Test Cases/withTree/TCb2 is running")
 

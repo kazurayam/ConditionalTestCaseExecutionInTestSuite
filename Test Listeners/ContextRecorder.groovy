@@ -5,11 +5,11 @@ import com.kms.katalon.core.context.TestSuiteContext
 
 import internal.GlobalVariable
 
-class TestCaseTreeBuilder {
+class ContextRecorder {
 	
 	@AfterTestCase
 	def afterTestCase(TestCaseContext testCaseContext) {
-		println "[TestCaseTreeBuilder#afterTestCase] added a node ${testCaseContext.getTestCaseId()}"
+		println "[ContextRecorder#afterTestCase] added a node '${testCaseContext.getTestCaseId()}'"
 		if (GlobalVariable.TestCaseTree != null) {
 			GlobalVariable.TestCaseTree[testCaseContext.getTestCaseId()] = testCaseContext
 		}
@@ -21,7 +21,7 @@ class TestCaseTreeBuilder {
 			Map<String, TestCaseContext> contexts = (Map)GlobalVariable.TestCaseTree
 			contexts.keySet().forEach { testCaseId ->
 				TestCaseContext tcc = contexts.get(testCaseId)
-				println "[TestCaseTreeBuilder#afterTestSuite] ${testCaseId} : ${tcc.getTestCaseStatus()}"
+				println "[ContextRecorder#afterTestSuite] '${testCaseId}' : ${tcc.getTestCaseStatus()}"
 			}
 		} else {
 			// does nothing if GlobalVariable.TestCaseTree is not defined
