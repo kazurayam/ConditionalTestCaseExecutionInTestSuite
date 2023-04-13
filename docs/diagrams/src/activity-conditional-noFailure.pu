@@ -1,4 +1,4 @@
-@startuml TSc - conditional no Failure
+@startuml TSc
 start
 
 partition "TC1" {

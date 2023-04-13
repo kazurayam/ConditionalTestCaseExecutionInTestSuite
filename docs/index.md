@@ -1,13 +1,18 @@
--   <a href="#conditional-test-case-execution-in-test-suite-in-katalon-studio" id="toc-conditional-test-case-execution-in-test-suite-in-katalon-studio">Conditional Test Case Execution in Test Suite in Katalon Studio</a>
--   <a href="#authoring-documents-in-asciidoc-to-generate-github-flavored-markdown" id="toc-authoring-documents-in-asciidoc-to-generate-github-flavored-markdown">Authoring documents in AsciiDoc to generate GitHub Flavored Markdown</a>
-    -   <a href="#publishdocs-a-custom-gradle-task" id="toc-publishdocs-a-custom-gradle-task">"publishdocs" --- a custom Gradle task</a>
-    -   <a href="#indexconv-sh" id="toc-indexconv-sh">indexconv.sh</a>
-    -   <a href="#markdownutil" id="toc-markdownutil">MarkdownUtil</a>
-        -   <a href="#problem-to-solve" id="toc-problem-to-solve">Problem to solve</a>
-
 # Conditional Test Case Execution in Test Suite in Katalon Studio
 
 TO BE AUTHOERED YET
+
+## Test Suites/TSa
+
+![TSa](./diagrams/out/activity-unconditional/TSa.png)
+
+## Test Suites/TSb
+
+![TSb](./diagrams/out/activity-conditional-withFailure/TSb.png)
+
+## Test Suites/TCs
+
+![TSc](//diagrams/out/activity-conditional-noFailure/TSc.png)
 
 # Authoring documents in AsciiDoc to generate GitHub Flavored Markdown
 

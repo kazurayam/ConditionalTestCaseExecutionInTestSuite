@@ -6,15 +6,15 @@ TO BE AUTHOERED YET
 
 == Test Suites/TSa
 
-image::./diagrams/out/activity-unconditional/TSa-unconditional.png[]
+image::./diagrams/out/activity-unconditional/TSa.png[]
 
 == Test Suites/TSb
 
-image::./diagrams/out/activity-conditional-withFailure/TSb-conditional-withFailure.png[]
+image::./diagrams/out/activity-conditional-withFailure/TSb.png[]
 
 == Test Suites/TCs
 
-image:://diagrams/out/activity-conditional-noFailure/TSc-conditional-noFailure.png[]
+image:://diagrams/out/activity-conditional-noFailure/TSc.png[]
 
 = Authoring documents in AsciiDoc to generate GitHub Flavored Markdown
 

@@ -1,4 +1,4 @@
-@startuml TSa - unconditional
+@startuml TSa
 start
 
 partition "TC1" {
