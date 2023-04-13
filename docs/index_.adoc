@@ -1,7 +1,20 @@
 = Conditional Test Case Execution in Test Suite in Katalon Studio
 
+
+
 TO BE AUTHOERED YET
 
+== Test Suites/TSa
+
+image::./diagrams/out/activity-unconditional/TSa-unconditional.png[]
+
+== Test Suites/TSb
+
+image::./diagrams/out/activity-conditional-withFailure/TSb-conditional-withFailure.png[]
+
+== Test Suites/TCs
+
+image:://diagrams/out/activity-conditional-noFailure/TSc-conditional-noFailure.png[]
 
 = Authoring documents in AsciiDoc to generate GitHub Flavored Markdown
 
