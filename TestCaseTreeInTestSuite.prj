@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
    <description></description>
-   <name>TreeOfTestCasesInTestSuite</name>
+   <name>TestCaseTreeInTestSuite</name>
    <tag></tag>
    <UUID>83fd61ce-cc92-4f63-b735-bf3db951b7bf</UUID>
    <migratedVersion>5.9.0</migratedVersion>
    <pageLoadTimeout>0</pageLoadTimeout>
-   <projectFileLocation>/Users/kazuakiurayama/katalon-workspace/FlowControlInKatalonTestSuite/TreeOfTestCasesInTestSuite.prj</projectFileLocation>
+   <projectFileLocation>/Users/kazuakiurayama/katalon-workspace/TestCaseTreeInTestSuite/TestCaseTreeInTestSuite.prj</projectFileLocation>
    <sourceContent>
       <sourceFolderList>
          <sourceFolderConfiguration>
