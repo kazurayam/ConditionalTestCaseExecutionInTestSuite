@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuiteEntity>
    <description></description>
-   <name>TS1</name>
+   <name>TSa</name>
    <tag></tag>
    <isRerun>false</isRerun>
    <mailRecipient></mailRecipient>
@@ -10,33 +10,33 @@
    <pageLoadTimeoutDefault>true</pageLoadTimeoutDefault>
    <rerunFailedTestCasesOnly>false</rerunFailedTestCasesOnly>
    <rerunImmediately>false</rerunImmediately>
-   <testSuiteGuid>4fa52dd1-9caf-410d-a915-4ee103261259</testSuiteGuid>
+   <testSuiteGuid>6fcd9d5e-ea0e-4dbf-8bb1-1eb0127e33e5</testSuiteGuid>
    <testCaseLink>
-      <guid>f9ae082d-849f-4844-a801-a1890c1714e9</guid>
+      <guid>34a9e3ad-b7b8-4ef3-88da-1b1c8202b4ce</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/TC1</testCaseId>
+      <testCaseId>Test Cases/unconditional/TCa1</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
-      <guid>17672445-8b26-459d-a7ac-bc0c0890ce9a</guid>
+      <guid>bc31be09-25da-4d9a-8577-1bcc78b83fe1</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/TC2</testCaseId>
+      <testCaseId>Test Cases/unconditional/TCa2</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
-      <guid>c13c1392-86c6-4b79-aadb-252c35d36450</guid>
+      <guid>7dd680eb-db42-466a-b1ec-769d127243d0</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/TC3</testCaseId>
+      <testCaseId>Test Cases/unconditional/TCa3</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
    <testCaseLink>
-      <guid>0187dbd3-58d2-48d0-a32a-4f677b637d78</guid>
+      <guid>84b6011b-c27c-4d33-b75b-8000cc6e37d5</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/TC4</testCaseId>
+      <testCaseId>Test Cases/unconditional/TCa4</testCaseId>
       <usingDataBindingAtTestSuiteLevel>true</usingDataBindingAtTestSuiteLevel>
    </testCaseLink>
 </TestSuiteEntity>
