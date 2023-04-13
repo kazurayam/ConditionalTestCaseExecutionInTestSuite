@@ -7,6 +7,6 @@
    <GlobalVariableEntity>
       <description></description>
       <initValue>[:]</initValue>
-      <name>TestCaseContextMap</name>
+      <name>TestCaseTree</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>
