@@ -23,7 +23,7 @@ In this repository, you will find a [Katalon Studio](https://katalon.com/) proje
 
 Regardless accidentally or intentionally, the `TCa2` could fail. Even if the `TCa2` failed, the Test Suite `TSa` will continue invoking the following Test cases `TCa3` and `TCa4`, as the following screenshot shows:
 
-![1 TSa](./images/1_TSa.png)
+![1 TSa](https://kazurayam.github.io/ConditionalTestCaseExecutionInTestSuite/images/1_TSa.png)
 
 Please note that:
 
@@ -175,7 +175,7 @@ Please note that `TCb3` asserts that the preceding `TCb2` passed. If the `TCb2` 
 
 When I ran the `TSb`, I saw the following result:
 
-![2 TSb](./images/2_TSb.png)
+![1 TSb](https://kazurayam.github.io/ConditionalTestCaseExecutionInTestSuite/images/1_TSb.png)
 
 Please note the following points:
 

@@ -10,7 +10,7 @@ In this repository, you will find a link:https://katalon.com/[Katalon Studio] pr
 
 Regardless accidentally or intentionally, the `TCa2` could fail. Even if the `TCa2` failed, the Test Suite `TSa` will continue invoking the following Test cases `TCa3` and `TCa4`, as the following screenshot shows:
 
-image::./images/1_TSa.png[]
+image::https://kazurayam.github.io/ConditionalTestCaseExecutionInTestSuite/images/1_TSa.png[]
 
 Please note that:
 
@@ -108,7 +108,7 @@ include::../Scripts/conditional-withFailure/TCb4/Script1681386955283.groovy[]
 
 When I ran the `TSb`, I saw the following result:
 
-image::./images/2_TSb.png[]
+image::https://kazurayam.github.io/ConditionalTestCaseExecutionInTestSuite/images/1_TSb.png[]
 
 Please note the following points:
 
