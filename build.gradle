@@ -39,6 +39,9 @@ sourceSets {
         }
     }
 }
+jar {
+  exclude 'internal/*'
+}
 
 task groovydoc(type: Groovydoc, overwrite:true) {
     source = sourceSets.main.groovy
