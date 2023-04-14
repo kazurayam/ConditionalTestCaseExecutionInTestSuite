@@ -1,6 +1,100 @@
+-   <a href="#conditional-test-case-execution-in-test-suite-in-katalon-studio" id="toc-conditional-test-case-execution-in-test-suite-in-katalon-studio">Conditional Test Case Execution in Test Suite in Katalon Studio</a>
+    -   <a href="#problem-to-solve" id="toc-problem-to-solve">Problem to solve</a>
+    -   <a href="#proposed-solution" id="toc-proposed-solution">Proposed Solution</a>
+    -   <a href="#solution-explained" id="toc-solution-explained">Solution Explained</a>
+        -   <a href="#installing-the-jar-file" id="toc-installing-the-jar-file">Installing the jar file</a>
+        -   <a href="#create-a-test-listener" id="toc-create-a-test-listener">Create a Test Listener</a>
+        -   <a href="#sample-project" id="toc-sample-project">Sample project</a>
+        -   <a href="#sample-codes-explained" id="toc-sample-codes-explained">Sample codes explained</a>
+    -   <a href="#test-suitestsa" id="toc-test-suitestsa">Test Suites/TSa</a>
+    -   <a href="#test-suitestsb" id="toc-test-suitestsb">Test Suites/TSb</a>
+    -   <a href="#test-suitestcs" id="toc-test-suitestcs">Test Suites/TCs</a>
+
 # Conditional Test Case Execution in Test Suite in Katalon Studio
 
-TO BE AUTHOERED YET
+## Problem to solve
+
+I have a Katalon Studio project with a Test Suite named `TSb`. The `TSb` consists of 4 Test Cases: `TCb1`, `TCb2`, `TCb3` and `TCb4`. The `TCb1`, 'TCb2' and `TCb4` --- these Test Cases run quickly (in a few seconds) but the `TCb3` run fairly long (20 secs, 2 minutes, 20 minutes, …​).
+
+Regardless accidentally or intentionally, the `TCb2` could fail. Even if the `TCb2` failed, the following Test cases (`TCb3` and `TCb4`) will be invoked by Test suite. As mentioned, the `TCb3` could take long time to run. See the following screenshot.
+
+![1 TSa](./images/1_TSa.png)
+
+Now I introduce a condition:
+
+> When the `TCb2` failed, I do not like to wait for the long-running `TCb3` to finish.
+
+If I am using Katalon Studio GUI, I would be able to click some button to cancel the Test Suite and stop every thing. But in Katalon Runtime Engine, it is not easy to detect if any of Test Case failed and therefore to cancel the Test Suite. I want a solution that fully automate a conditional Test Cases execution in Test Suite. I want to stop a failing Test Suite as soon as possible. I want to fully customize the condition. How can I achieve it?
+
+## Proposed Solution
+
+This project provides a jar file which contains a Groovy class named
+
+-   [`com.kazurayam.ks.TestCaseResults`](https://github.com/kazurayam/ConditionalTestCaseExecutionInTestSuite/blob/develop/Keywords/com/kazurayam/ks/TestCaseResults.groovy)
+
+which is supposed to be used in a [Katalon Studio](https://katalon.com/katalon-studio) project. Here is a sample Test Case script that utilizes it:
+
+    // Test Cases/conditional-withFailure/TCb3
+
+    import com.kazurayam.ks.TestCaseResults
+
+    import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+    import com.kms.katalon.core.model.FailureHandling as FailureHandling
+
+    TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")
+        
+    WebUI.comment("conditional-withFailure/TCb3 is running")
+
+    WebUI.delay(5)
+    WebUI.delay(5)
+    WebUI.delay(5)
+    WebUI.delay(5)
+
+This is a Test Case named `TCb3`. The `TCb3` is bundled in a Test Suite named `TSb` which consists of 4 Test Cases: `TCb1`, `TCb2`, `TCb3` and `TCb4`. These 4 Test Cases will be executed just sequentially.
+
+Look at the souce code; the `TCb3` is calling `TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")`. With this statement, the `TCb3` can make an assertion if the preceding Test Case `"conditional-withFailure/TCb2"` had its status `PASSED` or not. If the `TCb2` is found `PASSED`, the call to `assertTestCasePassed` will silently return. Then the `TCb3` will continue its processing. If the `TCb2` is found to have the status not `PASSED`, the call to `assertTestCasePASSED()` will raise a `StepFailedException`. Effectively the Test Case `TCb3` will skip its processing body.
+
+The `TestCaseResults.assertTestCasePASSED(String testCaseId)` enables you to conditionally execute your Test Case depending on the result of preceding Test Case in a Test Suite. **In each Test Case scripts, you can optionally call `TestCaseResult.assertTestCasePASSED(precedingTestCaseId)` to determine if it should quit soon or continue its long running test processing.**
+
+## Solution Explained
+
+### Installing the jar file
+
+A jar file that contains `com.kazurayam.ks.TestCaseResult` class is downloadable at the [Releases page](https://github.com/kazurayam/ConditionalTestCaseExecutionInTestSuite/releases/). You want to create your own Katalon Studio project. Download the jar into the `Drivers` folder in the project.
+
+### Create a Test Listener
+
+You want to create a List Listener code. The name of Test Listener can be any; for example `TL1`. The code should be like this:
+
+    import com.kazurayam.ks.TestCaseResults
+    import com.kms.katalon.core.annotation.AfterTestCase
+    import com.kms.katalon.core.annotation.AfterTestSuite
+    import com.kms.katalon.core.context.TestCaseContext
+    import com.kms.katalon.core.context.TestSuiteContext
+
+    class TL1 {
+        
+        @AfterTestCase
+        def afterTestCase(TestCaseContext testCaseContext) {
+            TestCaseResults.put(testCaseContext)
+        }
+        
+        @AfterTestSuite
+        def afterTestSuite(TestSuiteContext testSuiteContext) {
+            TestCaseResults.println()
+        }
+
+    }
+
+Perhaps you do not need to customize it. Just copy & paste this sample.
+
+### Sample project
+
+In the following repository, you can find a set of sample codes that uses the proposed solution.
+
+-   [ConditionalTestCaseExecutionInTestSuite-demo](https://github.com/kazurayam/ConditionalTestCaseExecutionInTestSuite-demo)
+
+### Sample codes explained
 
 ## Test Suites/TSa
 
@@ -12,80 +106,4 @@ TO BE AUTHOERED YET
 
 ## Test Suites/TCs
 
-![TSc](//diagrams/out/activity-conditional-noFailure/TSc.png)
-
-# Authoring documents in AsciiDoc to generate GitHub Flavored Markdown
-
-## "publishdocs" --- a custom Gradle task
-
-    $ cd MarkdownUtils
-    $ gradle publishdocs
-
-This single line is equivalent to the following operation in the command line:
-
-    ---
-    $ cd MarkdownUtils
-    $ cd docs
-    $ ./indexconv.sh -t
-    $ cd ..
-    $ git add .
-    $ git commit -m "update docs"
-    $ git push
-    ---
-
-## indexconv.sh
-
-TO BE AUTHORED
-
-## MarkdownUtil
-
-### Problem to solve
-
-The `index_.adoc` is originally authored in AsciiDoc.
-I will execute the following command.
-
-    $ cd docs
-    $ ./indexconv.sh -t
-
-The `readmeconv.sh` will generate `README.md` file. It will have
-the following "Table of Contents" section.
-
-    -   [MarkdownUtils](#_markdownutils)
-        -   [com.kazurayam.markdownutils.PandocMarkdownTranslator](#_com_kazurayam_markdownutils_pandocmarkdowntranslator)
-            -   [Problem to solve](#_problem_to_solve)
-
-    # MarkdownUtils
-    ...
-
-When I push this README.md up to GitHub, the link from TOC
-to the body sections does not work. The links are broken.
-
-What do I mean "the links are broken"? If you open <https://github.com/kazurayam/MarkdownUtils/> using
-any web browser and view the HTML source, you will find a section:
-
-            <a href="#_problem_to_solve">Problem to solve</a>
-
-and also you will find a sction:
-
-I will execute the follwoing command:
-
-    $ cd $MarkdownUtils
-    $ java -jar ./libs/MarkdownUtils-0.1.0-SNAPSHOT ./README.md ./temp.md
-
-The jar contains the `com.kazurayam.markdownutils.PandocMarkdownTranslator` class.
-The above command will call `translateFile("./README.md", "temp.md")` emthod, and
-generate a new file `temp.md`, which will have the following section:
-
-    -   [MarkdownUtils](#markdownutils)
-        -   [com.kazurayam.markdownutils.PandocMarkdownTranslator](#com-kazurayam-markdownutils-pandocmarkdowntranslator)
-            -   [Problem to solve](#problem-to-solve)
-
-    # MarkdownUtils
-    ...
-
-Please find the link symbols are slightly amended.
-The amended link symbols conforms to GitHub Flavoured Mardown spec.
-When `temp.md` is pushed to GitHub, the links in TOC to text body will work.
-
-The `PandocMarkdownTranslator` does this small patching over Markdown texts
-generated by `pandoc`.
+![TSc](./diagrams/out/activity-conditional-noFailure/TSc.png)

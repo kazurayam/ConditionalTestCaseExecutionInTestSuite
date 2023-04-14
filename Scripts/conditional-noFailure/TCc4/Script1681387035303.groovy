@@ -1,5 +1,6 @@
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kazurayam.ks.TestCaseResults
+
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 TestCaseResults.assertTestCasePASSED("conditional-noFailure/TCc1")
 
