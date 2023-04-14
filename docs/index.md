@@ -57,7 +57,7 @@ which is supposed to be used in a [Katalon Studio](https://katalon.com/katalon-s
     import com.kms.katalon.core.model.FailureHandling as FailureHandling
 
     TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")
-
+        
     WebUI.comment("conditional-withFailure/TCb3 is running")
     WebUI.delay(5)
     WebUI.comment("conditional-withFailure/TCb3 is running still")
@@ -92,12 +92,12 @@ You have to create a Test Listener. The name of Test Listener can be any. For ex
     import com.kms.katalon.core.context.TestSuiteContext
 
     class TL1 {
-
+        
         @AfterTestCase
         def afterTestCase(TestCaseContext testCaseContext) {
             TestCaseResults.put(testCaseContext)
         }
-
+        
         @AfterTestSuite
         def afterTestSuite(TestSuiteContext testSuiteContext) {
             TestCaseResults.println()
@@ -149,7 +149,7 @@ Please note that `TCb2` will fail intentionally for demonstration purpose.
     import com.kms.katalon.core.model.FailureHandling as FailureHandling
 
     TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")
-
+        
     WebUI.comment("conditional-withFailure/TCb3 is running")
     WebUI.delay(5)
     WebUI.comment("conditional-withFailure/TCb3 is running still")
@@ -181,9 +181,9 @@ Please note the following points:
 
 1.  The Test Case `TCb2` failed intentionally
 
-2.  The Test Case `TCb3` was started, and failed quickly without performing its long-running processing. The `TCb3` failed because the `TCb2` failed before it.
+2.  The Test Case `TCb3` was started, and failed quickly without performing is long-running processing.
 
-3.  The Test Suite `TSb` finished quickly in just 2 seconds.
+3.  The Test Suite `TSb` finished in 2 seconds.
 
 Principally, The Test Suite `TSa` and `TSb` are quite similar. Both does the same *test processing*. However the `TSb` behaves quite differently from the `TSa` when any of Test Case failed. The `TSb` is enabled to execute Test Cases conditionally using the `com.kazurayam.ks.TestCaseResults.assertTestCasePASSED(String testCaseId)` method call. So a Test Suite empowered by the `assertTestCasePASSED` can finish as soon as its member Test Cases failed.
 
