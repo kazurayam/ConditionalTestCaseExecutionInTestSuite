@@ -185,4 +185,6 @@ Please note the following points:
 
 3.  The Test Suite `TSb` finished in 2 seconds.
 
-Principally, The Test Suite `TSa` and `TSb` are quite similar. Both does the same *test processing*. However the `TSb` behaves quite differently from the `TSa` when any of Test Case failed. The `TSb` is enabled to execute Test Cases conditionally using the `com.kazurayam.ks.TestCaseResults.assertTestCasePASSED(String testCaseId)` method call.
+Principally, The Test Suite `TSa` and `TSb` are quite similar. Both does the same *test processing*. However the `TSb` behaves quite differently from the `TSa` when any of Test Case failed. The `TSb` is enabled to execute Test Cases conditionally using the `com.kazurayam.ks.TestCaseResults.assertTestCasePASSED(String testCaseId)` method call. So a Test Suite empowered by the `assertTestCasePASSED` can finish as soon as its member Test Cases failed.
+
+No longer you need to wait for a long-running Test Suite to finish after a failure even in the Katalon Runtime Engine.
