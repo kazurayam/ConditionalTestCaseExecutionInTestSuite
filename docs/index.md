@@ -5,9 +5,11 @@
         -   <a href="#installing-the-jar-file" id="toc-installing-the-jar-file">Installing the jar file</a>
         -   <a href="#create-a-test-listener" id="toc-create-a-test-listener">Create a Test Listener</a>
         -   <a href="#sample-codes-explained" id="toc-sample-codes-explained">Sample codes explained</a>
-    -   <a href="#test-suitestsa" id="toc-test-suitestsa">Test Suites/TSa</a>
-    -   <a href="#test-suitestsb" id="toc-test-suitestsb">Test Suites/TSb</a>
-    -   <a href="#test-suitestcs" id="toc-test-suitestcs">Test Suites/TCs</a>
+            -   <a href="#tcb1" id="toc-tcb1"><code>TCb1</code></a>
+            -   <a href="#tcb2" id="toc-tcb2"><code>TCb2</code></a>
+            -   <a href="#tcb3" id="toc-tcb3"><code>TCb3</code></a>
+            -   <a href="#tcb4" id="toc-tcb4"><code>TCb4</code></a>
+            -   <a href="#how-the-tsb-ran" id="toc-how-the-tsb-ran">How the <code>TSb</code> ran</a>
 
 # Conditional Test Case Execution in Test Suite in Katalon Studio
 
@@ -17,17 +19,27 @@ In the following repository, you can find a set of codes for explanation.
 
 -   [ConditionalTestCaseExecutionInTestSuite-demo](https://github.com/kazurayam/ConditionalTestCaseExecutionInTestSuite-demo)
 
-In this repository, I have a Katalon Studio project with a Test Suite named `TSa`. The `TSa` consists of 4 Test Cases: `TCa1`, `TCa2`, `TCa3` and `TCa4`. The `TSa` will invoke 4 Test Cases just sequentially. The `TCa1`, `TCa2` and `TCa4` --- these run quickly in a few seconds; but the `TCa3` could run long (20 secs, 2 minutes, 20 minutes, 2 hours …​).
+In this repository, you will find a [Katalon Studio](https://katalon.com/) project with a Test Suite named `TSa`. The `TSa` consists of 4 Test Cases: `TCa1`, `TCa2`, `TCa3` and `TCa4`. The `TSa` will invoke 4 Test Cases just sequentially. The `TCa1`, `TCa2` and `TCa4` --- these 3 will finish quickly in a few seconds; but the `TCa3` could run long (20 seconds, actually).
 
-Regardless accidentally or intentionally, the `TCa2` could fail. Even if the `TCa2` failed, the Test Suite `TSa` will continue invoking the following Test cases `TCa3` and `TCa4`. See the following screenshot.
+Regardless accidentally or intentionally, the `TCa2` could fail. Even if the `TCa2` failed, the Test Suite `TSa` will continue invoking the following Test cases `TCa3` and `TCa4`, as the following screenshot shows:
 
 ![1 TSa](./images/1_TSa.png)
 
+Please note that:
+
+1.  The Test Case `TCa2` failed intentionally.
+
+2.  The Test Case `TCa3` was invoked and took 20 seconds to finish.
+
+3.  The Test Suite `TSa` took 23 seconds to finish.
+
 Now I introduce a condition:
 
-> When the `TCa2` failed, I do not like to wait for the long-running `TCa3` to finish, because (due to some sensible reasons) the `TCa3` is not worth executing if its preceding `TCa2` failed. Rather I want the Test Suite to stop so that I can start debugging the `TCa2` as soon as possible.
+> When the `TCa2` failed, I do not like to wait for the `TCa3` to finish, because the `TCa3` is no longer worth executing (due to some reasons) when its predecessor `TCa2` failed. Rather I want to stop the Test Suite as soon as possible so that I can start debugging the `TCa2`.
 
-In the Katalon Studio GUI, I would be watching it and would notice any failures during a Test Suite run. Then I would able stop the Test Suite by some manual intervention (clicking a "stop" button). But in the Katalon Runtime Engine, we have very little chance to intervene the progress of a Test Suite run. When the `TCa2` failed, still the `TCa3` will be invoked. We are supposed to wait for the `TCa3` to finish. We have no other option. This is the problem.
+In the Katalon Studio GUI, I would keep watching it. I would notice any failures during a Test Suite runs, and I would able to stop the Test Suite by some manual intervention (clicking a "stop" button).
+
+But the Katalon Runtime Engine provides very little chance to intervene the progress of a Test Suite run. When the `TCa2` failed, still the `TCa3` will be invoked. We have to wait for the `TCa3` to finish (for 20 seconds, 2 minutes, 20 minutes or possibly 2 hours) before we can start trouble-shooting the \`TCa2’s failure'. No other option is provided by Katalon.
 
 ## Proposed Solution
 
@@ -57,9 +69,11 @@ which is supposed to be used in a [Katalon Studio](https://katalon.com/katalon-s
 
 This is a Test Case named `TCb3`. The `TCb3` is bundled in a Test Suite named `TSb` which consists of 4 Test Cases: `TCb1`, `TCb2`, `TCb3` and `TCb4`. These 4 Test Cases will be executed just sequentially.
 
-Look at the souce code; the `TCb3` is calling `TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")`. With this statement, the `TCb3` can make an assertion if the preceding Test Case `"conditional-withFailure/TCb2"` had its status `PASSED` or not. If the `TCb2` is found `PASSED`, the call to `assertTestCasePassed` will silently return. Then the `TCb3` will continue its processing. If the `TCb2` is found to have the status not `PASSED`, the call to `assertTestCasePASSED()` will raise a `StepFailedException`. Effectively the Test Case `TCb3` will skip its processing body.
+Let’s read the source code; the `TCb3` is calling
 
-The `TestCaseResults.assertTestCasePASSED(String testCaseId)` enables you to conditionally execute your Test Case depending on the result of preceding Test Case in a Test Suite. **In each Test Case scripts, you can optionally call `TestCaseResult.assertTestCasePASSED(precedingTestCaseId)` to determine if it should quit soon or continue its long running test processing.**
+    TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")`
+
+With this statement, the `TCb3` makes an assertion that a Test Case `"conditional-withFailure/TCb2"` ran and finished `PASSED` before the `TCb3`. If the `TCb2` is found `PASSED`, the call to `assertTestCasePASSED()` will return silent. The `TCb3` will continue its processing. If the `TCb2` is found Not `PASSED`, the call to `assertTestCasePASSED()` will raise a `StepFailedException`. The `TCb3` will quit soon, it will skip its processing body. A call to `TestCaseResults.assertTestCasePASSED(String testCaseId)` enables you to conditionally execute your Test Case depending on the result of preceding Test Case in a Test Suite.
 
 ## Solution Explained
 
@@ -69,7 +83,7 @@ A jar file that contains `com.kazurayam.ks.TestCaseResult` class is downloadable
 
 ### Create a Test Listener
 
-You have to create a List Listener code. The name of Test Listener can be any; for example `TL1`. The code should be like this:
+You have to create a Test Listener. The name of Test Listener can be any. For example `TL1`. The code should be like this:
 
     import com.kazurayam.ks.TestCaseResults
     import com.kms.katalon.core.annotation.AfterTestCase
@@ -91,20 +105,84 @@ You have to create a List Listener code. The name of Test Listener can be any; f
 
     }
 
-You do not need to customize it. Just copy & paste this sample.
+You would not need to customize it. Just copy & paste this sample.
 
-This code transfers the result of all Test Cases in a Test Suite to the instance of `com.kazurayam.ks.TestCaseResults` class. This code is mandatory to let the `TestCaseResults` instance be able to serve the `assertTestCasePASSED(String testCaseId)` method.
+This code transfers the execution results of Test Cases in a Test Suite to the instance of `com.kazurayam.ks.TestCaseResults` class. This code is mandatory to inform the `TestCaseResults` instance of the Test Cases' result so that it can serve useful `assertTestCasePASSED(String testCaseId)` method.
 
 ### Sample codes explained
 
-## Test Suites/TSa
+Test Suite `TSb` consists of 4 Test Cases: `TCb1`, `TCb2`, `TCb3` and `TCb4`.
 
-![TSa](./diagrams/out/activity-unconditional/TSa.png)
+#### `TCb1`
 
-## Test Suites/TSb
+    import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
-![TSb](./diagrams/out/activity-conditional-withFailure/TSb.png)
+    WebUI.comment("conditional-withFailure/TCb1 is running")
 
-## Test Suites/TCs
+#### `TCb2`
 
-![TSc](./diagrams/out/activity-conditional-noFailure/TSc.png)
+    // Test Cases/conditional-withFailure/TCb2
+
+    import com.kazurayam.ks.TestCaseResults
+
+    import com.kms.katalon.core.util.KeywordUtil
+    import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+    import com.kms.katalon.core.model.FailureHandling as FailureHandling
+
+    TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb1")
+    // or
+    //Boolean result = TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb1", FailureHandling.OPTIONAL)
+
+    WebUI.comment("conditional-withFailure/TCb2 is running")
+
+    KeywordUtil.markFailedAndStop("Test Cases/conditional-withFailure/TCb2 failed intentionally")
+
+Please note that `TCb2` will fail intentionally for demonstration purpose.
+
+#### `TCb3`
+
+    // Test Cases/conditional-withFailure/TCb3
+
+    import com.kazurayam.ks.TestCaseResults
+
+    import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+    import com.kms.katalon.core.model.FailureHandling as FailureHandling
+
+    TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")
+        
+    WebUI.comment("conditional-withFailure/TCb3 is running")
+    WebUI.delay(5)
+    WebUI.comment("conditional-withFailure/TCb3 is running still")
+    WebUI.delay(5)
+    WebUI.comment("conditional-withFailure/TCb3 is running yet")
+    WebUI.delay(5)
+    WebUI.comment("conditional-withFailure/TCb3 is running even more")
+    WebUI.delay(5)
+
+Please note that `TCb3` asserts that the preceding `TCb2` passed. If the `TCb2` is found NOT passed, then the `TCb3` will quit soon without doing its long-running processing.
+
+#### `TCb4`
+
+    import com.kazurayam.ks.TestCaseResults
+
+    import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+
+    TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb1")
+
+    WebUI.comment("conditional-withFailure/TCb4 is running")
+
+#### How the `TSb` ran
+
+When I ran the `TSb`, I saw the following result:
+
+![2 TSb](./images/2_TSb.png)
+
+Please note the following points:
+
+1.  The Test Case `TCb2` failed intentionally
+
+2.  The Test Case `TCb3` was started, and failed quickly without performing is long-running processing.
+
+3.  The Test Suite `TSb` finished in 2 seconds.
+
+Principally, The Test Suite `TSa` and `TSb` are quite similar. Both does the same *test processing*. However the `TSb` behaves quite differently from the `TSa` when any of Test Case failed. The `TSb` is enabled to execute Test Cases conditionally using the `com.kazurayam.ks.TestCaseResults.assertTestCasePASSED(String testCaseId)` method call.
