@@ -39,7 +39,7 @@ Now I introduce a condition:
 
 In the Katalon Studio GUI, I would keep watching it. I would notice any failures during a Test Suite runs, and I would able to stop the Test Suite by some manual intervention (clicking a "stop" button).
 
-But the Katalon Runtime Engine provides very little chance to intervene the progress of a Test Suite run. When the `TCa2` failed, still the `TCa3` will be invoked. We have to wait for the `TCa3` to finish (for 20 seconds, 2 minutes, 20 minutes or possibly 2 hours) before we can start trouble-shooting the \`TCa2’s failure'. No other option is provided by Katalon.
+But the Katalon Runtime Engine provides very little chance to intervene the progress of a Test Suite run. When the `TCa2` failed, still the `TCa3` will be invoked. We have to wait for the `TCa3` to finish (for 20 seconds, 2 minutes, 20 minutes or possibly 2 hours) before we can start trouble-shooting the `TCa2`’s failure. No other option is provided by Katalon.
 
 ## Proposed Solution
 
@@ -57,7 +57,7 @@ which is supposed to be used in a [Katalon Studio](https://katalon.com/katalon-s
     import com.kms.katalon.core.model.FailureHandling as FailureHandling
 
     TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")
-        
+
     WebUI.comment("conditional-withFailure/TCb3 is running")
     WebUI.delay(5)
     WebUI.comment("conditional-withFailure/TCb3 is running still")
@@ -92,12 +92,12 @@ You have to create a Test Listener. The name of Test Listener can be any. For ex
     import com.kms.katalon.core.context.TestSuiteContext
 
     class TL1 {
-        
+
         @AfterTestCase
         def afterTestCase(TestCaseContext testCaseContext) {
             TestCaseResults.put(testCaseContext)
         }
-        
+
         @AfterTestSuite
         def afterTestSuite(TestSuiteContext testSuiteContext) {
             TestCaseResults.println()
@@ -149,7 +149,7 @@ Please note that `TCb2` will fail intentionally for demonstration purpose.
     import com.kms.katalon.core.model.FailureHandling as FailureHandling
 
     TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")
-        
+
     WebUI.comment("conditional-withFailure/TCb3 is running")
     WebUI.delay(5)
     WebUI.comment("conditional-withFailure/TCb3 is running still")
