@@ -4,7 +4,6 @@
     -   <a href="#solution-explained" id="toc-solution-explained">Solution Explained</a>
         -   <a href="#installing-the-jar-file" id="toc-installing-the-jar-file">Installing the jar file</a>
         -   <a href="#create-a-test-listener" id="toc-create-a-test-listener">Create a Test Listener</a>
-        -   <a href="#sample-project" id="toc-sample-project">Sample project</a>
         -   <a href="#sample-codes-explained" id="toc-sample-codes-explained">Sample codes explained</a>
     -   <a href="#test-suitestsa" id="toc-test-suitestsa">Test Suites/TSa</a>
     -   <a href="#test-suitestsb" id="toc-test-suitestsb">Test Suites/TSb</a>
@@ -14,17 +13,21 @@
 
 ## Problem to solve
 
-I have a Katalon Studio project with a Test Suite named `TSb`. The `TSb` consists of 4 Test Cases: `TCb1`, `TCb2`, `TCb3` and `TCb4`. The `TCb1`, 'TCb2' and `TCb4` --- these Test Cases run quickly (in a few seconds) but the `TCb3` run fairly long (20 secs, 2 minutes, 20 minutes, …​).
+In the following repository, you can find a set of codes for explanation.
 
-Regardless accidentally or intentionally, the `TCb2` could fail. Even if the `TCb2` failed, the following Test cases (`TCb3` and `TCb4`) will be invoked by Test suite. As mentioned, the `TCb3` could take long time to run. See the following screenshot.
+-   [ConditionalTestCaseExecutionInTestSuite-demo](https://github.com/kazurayam/ConditionalTestCaseExecutionInTestSuite-demo)
+
+In this repository, I have a Katalon Studio project with a Test Suite named `TSa`. The `TSa` consists of 4 Test Cases: `TCa1`, `TCa2`, `TCa3` and `TCa4`. The `TSa` will invoke 4 Test Cases just sequentially. The `TCa1`, `TCa2` and `TCa4` --- these run quickly in a few seconds; but the `TCa3` could run long (20 secs, 2 minutes, 20 minutes, 2 hours …​).
+
+Regardless accidentally or intentionally, the `TCa2` could fail. Even if the `TCa2` failed, the Test Suite `TSa` will continue invoking the following Test cases `TCa3` and `TCa4`. See the following screenshot.
 
 ![1 TSa](./images/1_TSa.png)
 
 Now I introduce a condition:
 
-> When the `TCb2` failed, I do not like to wait for the long-running `TCb3` to finish.
+> When the `TCa2` failed, I do not like to wait for the long-running `TCa3` to finish, because (due to some sensible reasons) the `TCa3` is not worth executing if its preceding `TCa2` failed. Rather I want the Test Suite to stop so that I can start debugging the `TCa2` as soon as possible.
 
-If I am using Katalon Studio GUI, I would be able to click some button to cancel the Test Suite and stop every thing. But in Katalon Runtime Engine, it is not easy to detect if any of Test Case failed and therefore to cancel the Test Suite. I want a solution that fully automate a conditional Test Cases execution in Test Suite. I want to stop a failing Test Suite as soon as possible. I want to fully customize the condition. How can I achieve it?
+In the Katalon Studio GUI, I would be watching it and would notice any failures during a Test Suite run. Then I would able stop the Test Suite by some manual intervention (clicking a "stop" button). But in the Katalon Runtime Engine, we have very little chance to intervene the progress of a Test Suite run. When the `TCa2` failed, still the `TCa3` will be invoked. We are supposed to wait for the `TCa3` to finish. We have no other option. This is the problem.
 
 ## Proposed Solution
 
@@ -44,10 +47,12 @@ which is supposed to be used in a [Katalon Studio](https://katalon.com/katalon-s
     TestCaseResults.assertTestCasePASSED("conditional-withFailure/TCb2")
         
     WebUI.comment("conditional-withFailure/TCb3 is running")
-
     WebUI.delay(5)
+    WebUI.comment("conditional-withFailure/TCb3 is running still")
     WebUI.delay(5)
+    WebUI.comment("conditional-withFailure/TCb3 is running yet")
     WebUI.delay(5)
+    WebUI.comment("conditional-withFailure/TCb3 is running even more")
     WebUI.delay(5)
 
 This is a Test Case named `TCb3`. The `TCb3` is bundled in a Test Suite named `TSb` which consists of 4 Test Cases: `TCb1`, `TCb2`, `TCb3` and `TCb4`. These 4 Test Cases will be executed just sequentially.
@@ -64,7 +69,7 @@ A jar file that contains `com.kazurayam.ks.TestCaseResult` class is downloadable
 
 ### Create a Test Listener
 
-You want to create a List Listener code. The name of Test Listener can be any; for example `TL1`. The code should be like this:
+You have to create a List Listener code. The name of Test Listener can be any; for example `TL1`. The code should be like this:
 
     import com.kazurayam.ks.TestCaseResults
     import com.kms.katalon.core.annotation.AfterTestCase
@@ -86,13 +91,9 @@ You want to create a List Listener code. The name of Test Listener can be any; f
 
     }
 
-Perhaps you do not need to customize it. Just copy & paste this sample.
+You do not need to customize it. Just copy & paste this sample.
 
-### Sample project
-
-In the following repository, you can find a set of sample codes that uses the proposed solution.
-
--   [ConditionalTestCaseExecutionInTestSuite-demo](https://github.com/kazurayam/ConditionalTestCaseExecutionInTestSuite-demo)
+This code transfers the result of all Test Cases in a Test Suite to the instance of `com.kazurayam.ks.TestCaseResults` class. This code is mandatory to let the `TestCaseResults` instance be able to serve the `assertTestCasePASSED(String testCaseId)` method.
 
 ### Sample codes explained
 
