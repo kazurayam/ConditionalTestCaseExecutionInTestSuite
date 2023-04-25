@@ -8,7 +8,7 @@ class TL1 {
 	
 	@AfterTestCase
 	def afterTestCase(TestCaseContext testCaseContext) {
-		TestCaseResults.put(testCaseContext)
+		TestCaseResults.add(testCaseContext)
 	}
 	
 	@AfterTestSuite

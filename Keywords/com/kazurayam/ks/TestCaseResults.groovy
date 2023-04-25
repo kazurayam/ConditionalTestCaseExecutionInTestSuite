@@ -13,22 +13,25 @@ import internal.GlobalVariable
  */
 public class TestCaseResults {
 
-	private static Map<String, TestCaseContext> results = new HashMap<>()
+	private static List<TestCaseContext> results = new ArrayList<>()
 
 	private TestCaseResults() {}
 
-	static void put(TestCaseContext testCaseContext) {
+	static void add(TestCaseContext testCaseContext) {
 		Objects.requireNonNull(testCaseContext)
-		results.put(testCaseContext.getTestCaseId(), testCaseContext)
+		results.add(testCaseContext)
 	}
 
 	static TestCaseContext get(String testCaseId) {
 		String tcId = normalize(testCaseId)
-		return results.get(tcId)
-	}
-
-	static Set<String> keySet() {
-		return results.keySet()
+		TestCaseContext found = null
+		for (TestCaseContext tcc : results) {
+			if (tcc.getTestCaseId() == tcId) {
+				found = tcc
+				break
+			}
+		}
+		return found
 	}
 
 	static String getTestCaseStatus(String testCaseId) {
@@ -48,8 +51,7 @@ public class TestCaseResults {
 		}
 	}
 
-	static Boolean assertTestCasePASSED(String testCaseId, FailureHandling flowControl = FailureHandling.STOP_ON_FAILURE) 
-			throws StepFailedException {
+	static Boolean assertTestCasePASSED(String testCaseId, FailureHandling flowControl = FailureHandling.STOP_ON_FAILURE) throws StepFailedException {
 		String testCaseStatus = getTestCaseStatus(testCaseId)
 		if (testCaseStatus != null) {
 			if (testCaseStatus == 'PASSED') {
@@ -69,12 +71,9 @@ public class TestCaseResults {
 	}
 
 	static void println() {
-		Set<String> keySet = keySet()
-		if (keySet != null) {
-			keySet.forEach { testCaseId ->
-				TestCaseContext tcc = get(testCaseId)
-				println "'${testCaseId}' : ${tcc.getTestCaseStatus()}"
-			}
+		for (TestCaseContext tcc in results) {
+			String testCaseId = tcc.getTestCaseId()
+			println "'${testCaseId}' : ${tcc.getTestCaseStatus()}"
 		}
 	}
 }
